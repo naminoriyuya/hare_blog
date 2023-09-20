@@ -35,7 +35,7 @@ class PostController extends Controller
         $post->user_id = $request->user()->id;
 
         $file = $request->file('image');
-        $post->image = date('YmdHis') . '_' . $file->getClientOriginalName();
+        $post->image = self::createFilename($file);
 
         // トランザクション開始
         DB::beginTransaction();
@@ -102,7 +102,7 @@ class PostController extends Controller
         if ($file) {
             // 削除するファイル名の保持
             $delete_file_path = 'images/posts/' . $post->image;
-            $post->image = date('YmdHis') . '_' . $file->getClientOriginalName();
+            $post->image = self::createFilename($file);
         }
         $post->fill($request->all());
         // トランザクション開始
@@ -112,21 +112,20 @@ class PostController extends Controller
             $post->save();
 
             if ($file) {
-            // 画像アップロード
-            if (!Storage::putFileAs('images/posts', $file, $post->image)) {
-                // 例外を投げてロールバックさせる
-                throw new \Exception('画像ファイルの保存に失敗しました。');
-            }
+                // 画像アップロード
+                if (!Storage::putFileAs('images/posts', $file, $post->image)) {
+                    // 例外を投げてロールバックさせる
+                    throw new \Exception('画像ファイルの保存に失敗しました。');
+                }
 
-            //画像削除
-            if (!Storage::delete($delete_file_path)) {
-                //アップロードした画像を削除する
+                //画像削除
+                if (!Storage::delete($delete_file_path)) {
+                    //アップロードした画像を削除する
                     Storage::delete('images/posts/' . $post->image);
                     //例外を投げてロールバックさせる
                     throw new \Exception('画像ファイルの削除に失敗しました。');
+                }
             }
-
-        }
 
             // トランザクション終了(成功)
             DB::commit();
@@ -147,5 +146,9 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    private static function createFileName($file)
+    {
+        return date('YmdHis') . '_' . $file->getClientOriginalName();
     }
 }
