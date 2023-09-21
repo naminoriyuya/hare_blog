@@ -1,9 +1,9 @@
 <x-app-layout>
     <div class="container lg:w-3/4 md:w-4/5 w-11/12 mx-auto my-8 px-8 py-4 bg-white shadow-md">
-    
+
         <x-flash-message :message="session('notice')" />
-        <x-validation-errors :errors="$errors"/>
-        
+        <x-validation-errors :errors="$errors" />
+
         <article class="mb-2">
             <h2 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-1 text-3xl md:text-4xl break-words">
                 {{ $post->title }}</h2>
@@ -30,5 +30,13 @@
                 </form>
             @endcan
         </div>
+        @auth
+            <hr class="my-4">
+
+            <div class="flex justify-end">
+                <a href="{{ route('posts.comments.create', $post) }}"
+                    class="bg-indigo-400 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block">コメント登録</a>
+            </div>
+        @endauth
     </div>
 </x-app-layout>
