@@ -18,11 +18,11 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnUpdate();
-            
             $table->foreignID('post_id')
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnUpdate();
+            $table->timestamps();
         });
     }
 
