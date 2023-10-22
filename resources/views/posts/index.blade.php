@@ -1,27 +1,18 @@
 <x-app-layout>
     <div class="container max-w-7xl mx-auto px-4 md:px-12 pb-3 mt-3">
-
-        <x-flash-message :message="session('notice')" />
-        
-        <div class="flex flex-wrap -mx-1 lg:-mx-4 mb-4">
-            @foreach ($posts as $post)
-                <article class="w-full px-4 md:w-1/2 text-xl text-gray-800 leading-normal">
-                    <a href="{{ route('posts.show', $post) }}">
-                        <h2
-                            class="font-bold font-sans break-normal text-gray-900 pt-6 pb-1 text-3xl md:text-4xl break-words">
-                            {{ $post->title }}</h2>
-                        <h3>{{ $post->user->name }}</h3>
-                        <p class="text-sm mb-2 md:text-base font-normal text-gray-600">
-                            <span
-                                class="text-red-400 font-bold">{{ date('Y-m-d H:i:s', strtotime('-1 day')) < $post->created_at ? 'NEW' : '' }}</span>
-                            {{ $post->created_at }}
-                        </p>
-                        <img class="w-full mb-2" src="{{ $post->image_url }}" alt="">
-                        <p class="text-gray-700 text-base">{{ Str::limit($post->body, 50) }}</p>
-                    </a>
-                </article>
-            @endforeach
-        </div>
-        {{ $posts->links() }}
+    <h1 style="font-size:30px; color:blue;">質問コーナー</h1>
+    <p style="font-size:30px">各県の研究発表内容について事前にチームで確認し、発表会当日に向けて質問内容はまとめ要点を押さえておきましょう。
+    
+    <h1><span class="title">九州各県・研究発表</span>
+        <span class="detail">下記>を押すと質問コーナーにジャンプします。</span>
+    </h1>
+            <ul>
+                <li><a href=>福岡県</a></li>
+                <li><a href=>佐賀県</a></li>
+                <li><a href=>長崎県</a></li>
+                <li><a href=>熊本県</a></li>
+                <li><a href=>大分県</a></li>
+                <li><a href=>鹿児島県</a></li>
+            </ul>
     </div>
 </x-app-layout>

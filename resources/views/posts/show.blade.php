@@ -44,7 +44,7 @@
                 <div class="my-2">
                     <span class="font-bold mr-3">{{ $comment->user->name }}</span>
                     <span class="text-sm">{{ $comment->created_at }}</span>
-                    <p> class="break-all>{!! nl2br(e($comment->body)) !!}</p>
+                    <p class="break-all">{!! nl2br(e($comment->body)) !!}</p>
                 </div>
                 <hr>
             @endforeach
